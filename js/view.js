@@ -2,21 +2,24 @@ const view = {}
 view.setActiveScreen = (screenName) => {
   switch (screenName) {
     case 'loginScreen' :
+    // in ra man login
       document.getElementById('app').innerHTML = components.loginScreen
+      document.getElementById('redirect-to-register').addEventListener('click', () => {
+        view.setActiveScreen('registerScreen')
+      })
       const loginForm = document.getElementById('login-form')
-      loginForm.addEventListener('submit', (event) => {
-        event.preventDefault()
+      loginForm.addEventListener('submit', (e) => {
+        e.preventDefault()
+        loginForm.email.value = loginForm.email.value.trim()
         const data = {
           email: loginForm.email.value,
-          password: loginForm.password.value,
+          password: loginForm.password.value
         }
-        console.log(data)
         controller.login(data)
       })
     break;
     case 'registerScreen' :
-      document.getElementById('app')
-      .innerHTML = components.registerScreen
+      document.getElementById('app').innerHTML = components.registerScreen
       const registerForm = document.getElementById('register-form')
       registerForm.addEventListener('submit', (event) => {
         event.preventDefault()
@@ -30,6 +33,12 @@ view.setActiveScreen = (screenName) => {
         console.log(data)
         controller.register(data)
       })
+      document.getElementById('redirect-to-login').addEventListener('click', () => {
+        view.setActiveScreen('loginScreen')
+      })
+    break;
+    case  'chatScreen' :
+      document.getElementById('app').innerHTML = components.chatScreen
     break;
   }
 }

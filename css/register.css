@@ -36,10 +36,4 @@
   justify-content: space-between;
   align-items: center;
 }
-.form-action span{
-  font-weight: 600;
-  cursor: pointer;
-}
-.form-action span:hover{
-  color: blue;
-}
+

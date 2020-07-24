@@ -24,3 +24,11 @@
   color: #FF0000;
   margin-left: 10px;
 }
+
+.form-action span{
+  font-weight: 600;
+  cursor: pointer;
+}
+.form-action span:hover{
+  color: blue;
+}
