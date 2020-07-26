@@ -89,4 +89,5 @@ components.registerScreen = `
 components.chatScreen  = 
 `
   <div>Chat Screen</div>
+
 `

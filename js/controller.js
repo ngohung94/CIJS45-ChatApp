@@ -4,8 +4,15 @@ controller.register = (data) => {
     document.getElementById('last-name-error').innerText = (data.lastName.trim() === '' ) ? 'Please input last name' :  '' ;
     document.getElementById('email-error').innerText  = (data.email.trim() === '' ) ? 'Please input email' :  '' ;
     document.getElementById('password-error').innerText = (data.password === '') ? 'Please input password' :  '' ;
-    document.getElementById('confirm-password-error').innerText = (data.confirmPassword === '') ? 'Please input confirm password' :  '' ;
-    document.getElementById('confirm-password-error').innerText  = (data.password !== data.confirmPassword) ? `Password didn't match` : '' ;
+
+    if (data.confirmPassword === ''){
+      document.getElementById('confirm-password-error').innerText = 'Please input confirm password' 
+    }else if ( data.password !== data.confirmPassword ){
+      document.getElementById('confirm-password-error').innerText  = `Password didn't match`
+    }else{
+      document.getElementById('confirm-password-error').innerText  = ''
+    }
+
     if(data.firstName !== '' && data.lastName !== '' && data.email !== '' && data.password !== '' && data.confirmPassword !== '' && data.password === data.confirmPassword){
       model.register(data)
     }

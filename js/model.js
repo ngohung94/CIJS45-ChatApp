@@ -1,18 +1,18 @@
-const model = {} 
-model.currentUser = undefined ;
+const model = {}
+model.currentUser = undefined
 model.register = async (data) => {
-    try {
-        await firebase.auth().createUserWithEmailAndPassword(data.email, data.password)
-        firebase.auth().currentUser.updateProfile({
-            displayName : data.fistName + " " + data.lastName,
-        })
-        firebase.auth().currentUser.sendEmailVerification()
-        alert('The email has been register, please check your email')
-        view.setActiveScreen('loginScreen')
-    } catch (err) {
-        console.log(err)
-        alert(err.message)
-    }
+  try {
+   await firebase.auth().createUserWithEmailAndPassword(data.email, data.password)
+    firebase.auth().currentUser.updateProfile({
+      displayName: data.firstName + ' ' + data.lastName
+    })
+    firebase.auth().currentUser.sendEmailVerification()
+    alert('The email has been registered, please check you email!')
+    view.setActiveScreen('loginScreen')
+  } catch(err) {
+    console.log(err)
+    alert(err.message)
+  }
 
     // .then( res => {
     //     firebase.auth().currentUser.updateProfile({
@@ -36,7 +36,7 @@ model.login = async (dataLogin) => {
             displayName : response.user.displayName,
             email : response.user.email
         }
-        alert("Welcome")
+        alert(`Welcome ${response.user.displayName}`)
         view.setActiveScreen('chatScreen')
     }
     } catch(err){
