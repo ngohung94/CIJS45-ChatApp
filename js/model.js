@@ -35,8 +35,7 @@ model.login = async (dataLogin) => {
               model.currentUser = {
                   displayName : response.user.displayName,
                   email : response.user.email
-              }
-              alert(`Welcome ${response.user.displayName}`)
+              } 
               view.setActiveScreen('chatScreen')
           }
       } catch(err){
