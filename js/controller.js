@@ -27,3 +27,8 @@ controller.login = (dataLogin) =>{
   }
 }
 
+controller.chat = (user) => {
+  if(user.email !== '' && user.password !== ''){
+    model.chat(user)
+  }
+}
