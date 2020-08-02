@@ -47,26 +47,20 @@ view.setActiveScreen = (screenName) => {
           content :sendMessengerForm.messenger.value,
           owner : model.currentUser.email
         }
-        const bossMsg = {
+        const botMsg = {
           content :sendMessengerForm.messenger.value,
-          owner : "Boss"
+          owner : "Bot"
         }
         if( message.content.trim() !== ''){
             view.addMessenger(message)
-            view.addMessenger(bossMsg)
+            view.addMessenger(botMsg)
         }
         sendMessengerForm.messenger.value = ''
       })
       document.getElementById("logOut").addEventListener("click", (e) => {
-        e.preventDefault()
-
+        e.preventDefault()  
         firebase.auth().signOut().then(() => {
-          confirm('Do you want to log out')
-
-
-          //view.setActiveScreen('loginScreen')
-        }).catch(function (error) {
-          //An error happened
+          alert("Sign-out successful.")
         })
       })
     break;
@@ -77,13 +71,18 @@ view.addMessenger = (message) => {
     const messageWrapper = document.createElement("div")
     messageWrapper.classList.add('message-container')
     if (message.owner === model.currentUser.email){
-      messageWrapper.classList.add("mine")
-      
+      messageWrapper.classList.add("mine")  
         messageWrapper.innerHTML = `
         <div class="content">
           ${message.content}
           </div>
         `        
+        documentIdUpdate = 'TUPswh8j3PdIcZVCDmSn'
+        const newMessages = {
+          messages : firebase.firestore.FieldValue.arrayUnion(`${message.content}`)
+        }
+        firebase.firestore().collection('conversations').doc(documentIdUpdate).update(newMessages)
+
     }else {
       messageWrapper.classList.add('their')
       messageWrapper.innerHTML = `
@@ -97,3 +96,5 @@ view.addMessenger = (message) => {
     }
     document.querySelector(".list-messages").appendChild(messageWrapper)
 }
+
+
