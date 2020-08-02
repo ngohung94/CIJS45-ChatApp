@@ -57,6 +57,18 @@ view.setActiveScreen = (screenName) => {
         }
         sendMessengerForm.messenger.value = ''
       })
+      document.getElementById("logOut").addEventListener("click", (e) => {
+        e.preventDefault()
+
+        firebase.auth().signOut().then(() => {
+          confirm('Do you want to log out')
+
+
+          //view.setActiveScreen('loginScreen')
+        }).catch(function (error) {
+          //An error happened
+        })
+      })
     break;
     }
 }

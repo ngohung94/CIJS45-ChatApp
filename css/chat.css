@@ -13,6 +13,15 @@
     font-size: 28px;
     background: #037BFE;
     color: #ffffff;
+    position: relative;
+}
+.header button{
+    position: absolute;
+    top:32px;
+    right :0;
+    height: 30px;
+    padding: 0px 10px;
+    background-color: chartreuse;
 }
 .main{
     height: calc(100% - 64px);
