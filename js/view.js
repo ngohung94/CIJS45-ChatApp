@@ -78,8 +78,13 @@ view.addMessenger = (message) => {
           </div>
         `        
         documentIdUpdate = 'TUPswh8j3PdIcZVCDmSn'
+        
         const newMessages = {
-          messages : firebase.firestore.FieldValue.arrayUnion(`${message.content}`)
+          messages : {
+            content : firebase.firestore.FieldValue.arrayUnion(`${message.content}`),
+            createdAT : (new Date()).toISOString(),
+            owner : model.currentUser.email
+          }
         }
         firebase.firestore().collection('conversations').doc(documentIdUpdate).update(newMessages)
 
