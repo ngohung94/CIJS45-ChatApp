@@ -88,7 +88,12 @@
 .list-messages .mine .content{
     background-color: #037BFE;
     color: #ffffff;
-
+    word-break: break-all;
+}
+.list-messages .their .content{
+    background-color: #afaaaa;
+    color: #2e2d2d;
+    word-break: break-all;
 }
 .list-messenger .their .content{
     background-color:#dadbdb;

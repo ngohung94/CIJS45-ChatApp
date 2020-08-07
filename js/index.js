@@ -1,36 +1,36 @@
 const init = () => {
     let firebaseConfig = {
-      apiKey: "AIzaSyD8WkeWJ0ZVtqHaalg2OO2XxSJQb7sRR34",
-      authDomain: "chat-app-64ade.firebaseapp.com",
-      databaseURL: "https://chat-app-64ade.firebaseio.com",
-      projectId: "chat-app-64ade",
-      storageBucket: "chat-app-64ade.appspot.com",
-      messagingSenderId: "713948918157",
-      appId: "1:713948918157:web:b81f68f2b4bfe80984cdc4"
+        apiKey: "AIzaSyD8WkeWJ0ZVtqHaalg2OO2XxSJQb7sRR34",
+        authDomain: "chat-app-64ade.firebaseapp.com",
+        databaseURL: "https://chat-app-64ade.firebaseio.com",
+        projectId: "chat-app-64ade",
+        storageBucket: "chat-app-64ade.appspot.com",
+        messagingSenderId: "713948918157",
+        appId: "1:713948918157:web:b81f68f2b4bfe80984cdc4"
     };
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     // console.log(firebase.app().name)
     // firestoreFunction()
-    addMessageFireBase()
+    // addMessageFireBase()
 
     firebase.auth().onAuthStateChanged(function(user) {
-      if (user) {
+        if (user) {
           // User is signed in.
-          if (user.emailVerified) {
-              model.currentUser = {
-                  displayName: user.displayName,
-                  email: user.email
-              }
-              view.setActiveScreen('chatScreen')
-          } else {
-              view.setActiveScreen('loginScreen')
-              alert('Please verify your email')
-          }
-      } else {
-          view.setActiveScreen('loginScreen')
-      }
-  });
+            if (user.emailVerified) {
+                model.currentUser = {
+                    displayName: user.displayName,
+                    email: user.email
+                }
+                view.setActiveScreen('chatScreen')
+            } else {
+                view.setActiveScreen('loginScreen')
+                alert('Please verify your email')
+            }
+        } else {
+            view.setActiveScreen('loginScreen')
+        }
+    });
 } 
 window.onload = init 
 
@@ -68,32 +68,27 @@ window.onload = init
 //   firebase.firestore().collection('users').doc(docToDelete).delete()
 // }
 // // Get data from doc
-// getDataFromDoc  = (doc) => {
-//   const data = doc.data()
-//   data.id = doc.id
-//   return data
-// }
-// // Get data from docs
-// getDataFromDocs = (docs) => {
-//   return docs.map(item => getDataFromDoc(item))
-//   // const listData = {} 
-//   // for (let index = 0; index < docs.length; index++) {
-//   //   const element = getDataFromDoc(docs[index]);
-//   //   listData.push(element)
-//   // }
-//   // return listData
-// }
-
-// add mess len firebase
-addMessageFireBase = async ()=> {
-    const documentId  = 'TUPswh8j3PdIcZVCDmSn'
-    const response = await firebase.firestore().collection('conversations').doc(documentId).get()
-    const user = getDataFromDoc(response)
-    console.log(user)
-}
-
 getDataFromDoc  = (doc) => {
     const data = doc.data()
     data.id = doc.id
     return data
-  }
+}
+// // Get data from docs
+getDataFromDocs = (docs) => {
+    return docs.map(item => getDataFromDoc(item))
+    const listData = {} 
+    for (let index = 0; index < docs.length; index++) {
+        const element = getDataFromDoc(docs[index]);
+        listData.push(element)
+    }
+    return listData
+}
+
+// // add mess len firebase
+// addMessageFireBase = async ()=> {
+//     const documentId  = 'TUPswh8j3PdIcZVCDmSn'
+//     const response = await firebase.firestore().collection('conversations').doc(documentId).get()
+//     const user = getDataFromDoc(response)
+//     console.log(user)
+// }
+

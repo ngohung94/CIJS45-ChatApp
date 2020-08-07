@@ -95,15 +95,15 @@ components.chatScreen  =
 </div>
 <div class="main">
     <div class="conversation-detail">
-        <div class="conversation-header">
-          First conversation
+        <div class="conversation-header">    
+        First conversation      
         </div>
         <div class="list-messages" >
           
         </div>
         <form id="send-messenger-form">
           <div class="input-wrapper">
-            <input type="text" name="messenger" placeholder="Type a messenger">
+            <input type="text" name="message" placeholder="Type a messenger">
           </div>
           <button type="submit">
             <i class="fa fa-paper-plane" aria-hidden="true"></i>

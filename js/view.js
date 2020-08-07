@@ -43,20 +43,20 @@ view.setActiveScreen = (screenName) => {
       const sendMessengerForm = document.getElementById("send-messenger-form")
       sendMessengerForm.addEventListener("submit",(e)=>{
         e.preventDefault()
+      if(sendMessengerForm.message.value.trim() !== ''){
         const message = {
-          content :sendMessengerForm.messenger.value,
-          owner : model.currentUser.email
-        }
-        const botMsg = {
-          content :sendMessengerForm.messenger.value,
-          owner : "Bot"
-        }
-        if( message.content.trim() !== ''){
-            view.addMessenger(message)
-            view.addMessenger(botMsg)
-        }
-        sendMessengerForm.messenger.value = ''
-      })
+          content :sendMessengerForm.message.value,
+          owner : model.currentUser.email,
+          createdAt : (new Date()).toISOString()
+        }   
+        // view.addMessage(message)
+        model.addMessage(message)
+        sendMessengerForm.message.value = ''
+      }
+    })
+    model.loadConversations()
+    model.listenConversationsChange()
+    // Log Out
       document.getElementById("logOut").addEventListener("click", (e) => {
         e.preventDefault()  
         firebase.auth().signOut().then(() => {
@@ -67,7 +67,7 @@ view.setActiveScreen = (screenName) => {
     }
 }
 
-view.addMessenger = (message) => {
+view.addMessage = (message) => {
     const messageWrapper = document.createElement("div")
     messageWrapper.classList.add('message-container')
     if (message.owner === model.currentUser.email){
@@ -77,17 +77,6 @@ view.addMessenger = (message) => {
           ${message.content}
           </div>
         `        
-        documentIdUpdate = 'TUPswh8j3PdIcZVCDmSn'
-        
-        const newMessages = {
-          messages : {
-            content : firebase.firestore.FieldValue.arrayUnion(`${message.content}`),
-            createdAT : (new Date()).toISOString(),
-            owner : model.currentUser.email
-          }
-        }
-        firebase.firestore().collection('conversations').doc(documentIdUpdate).update(newMessages)
-
     }else {
       messageWrapper.classList.add('their')
       messageWrapper.innerHTML = `
@@ -102,4 +91,18 @@ view.addMessenger = (message) => {
     document.querySelector(".list-messages").appendChild(messageWrapper)
 }
 
+view.showCurrentConversation = () => {
+  // Doi ten cuoc tro truyen
+  console.log(model.currentConversation)
+  document.getElementsByClassName('conversation-header')[0].innerText = model.currentConversation.title
+  // In cac tin nhan len man hinh
+  for(message of model.currentConversation.messages){
+    view.addMessage(message)
+  }
+  view.scrollToEndElement()
+}
 
+view.scrollToEndElement = () => {
+  var element = document.querySelector(".list-messages");
+  element.scrollTop = element.scrollHeight;
+}
