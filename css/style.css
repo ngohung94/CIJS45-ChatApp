@@ -3,6 +3,15 @@
   margin: 0;
   box-sizing: border-box;
 }
+.header{
+  height: 64px;
+  line-height: 64px;
+  text-align: center;
+  font-size: 28px;
+  background: #037BFE;
+  color: #ffffff;
+  position: relative;
+}
 .input-wrapper input{
   border: 1px solid #dbdbdb;
   padding: 10px 15px;
@@ -20,6 +29,10 @@
   border-radius: 5px;
   cursor: pointer;
 }
+.btn-light {
+  background: none;
+  color: #333;
+}
 .error{
   color: #FF0000;
   margin-left: 10px;
@@ -31,4 +44,7 @@
 }
 .form-action span:hover{
   color: blue;
+}
+.cursor-pointer{
+  cursor: pointer;
 }

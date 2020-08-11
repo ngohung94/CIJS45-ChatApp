@@ -27,4 +27,6 @@ controller.login = (dataLogin) =>{
   }
 }
 
-
+controller.createConversation = (data) => {
+  document.getElementById('conversation-name-error').innerText = (data.conversationTitle.trim() === '' ) ? 'Please input first name' :  '' ;
+}

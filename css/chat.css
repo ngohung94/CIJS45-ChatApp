@@ -6,15 +6,7 @@
 .chat-container{
     height: 100vh;
 }
-.chat-container .header{
-    height: 64px;
-    line-height: 64px;
-    text-align: center;
-    font-size: 28px;
-    background: #037BFE;
-    color: #ffffff;
-    position: relative;
-}
+
 .header button{
     position: absolute;
     top:32px;
@@ -23,13 +15,26 @@
     padding: 0px 10px;
     background-color: chartreuse;
 }
-.main{
+.chat-container .main{
     height: calc(100% - 64px);
+    display: flex;
+}
+.main .aside-left {
+    width: 15%;
+    height: 100%;
+    border-right: 1px solid #dbdbdb;
+}
+.main .aside-left .create-conversation {
+    height: 64px;
+    line-height: 64px;
+    border-bottom: 1px solid #dbdbdb;
+    text-align: center;
 }
 .main .conversation-detail{
     height: 100%;
     display: flex;
     flex-direction: column;
+    width: 85%;;
 }
 .main .conversation-detail .conversation-header{
     height: 64px;
@@ -37,22 +42,23 @@
     text-align: center;
     border-bottom: 1px solid rgb(218, 215, 215);
 }
-.list-messages{
+.conversation-detail .list-messages{
     background-color: #ffffff;
     flex-grow: 1;
+    padding: 10px;
+    overflow-y: auto;
 }
-#send-messenger-form{
+.conversation-detail #send-messenger-form{
     position: relative;
-
 }
-#send-messenger-form .input-wrapper{
+.conversation-detail #send-messenger-form .input-wrapper{
     margin-bottom: 0px;
 }
-#send-messenger-form .input-wrapper input {
+.conversation-detail #send-messenger-form .input-wrapper input {
     height: 64px;
     border-top: 1px solid #dbdbdb;
 }
-#send-messenger-form button {
+.conversation-detail #send-messenger-form button {
     width: 64px;
     height: 64px;
     position: absolute;
@@ -63,14 +69,11 @@
     background-color: #fff;
     
 }
-#send-messenger-form button i{
+.conversation-detail #send-messenger-form button i{
     font-size: 24px;
     color: #037BFE;
 }
-.list-messages{
-    padding: 10px;
-    overflow-y: auto;
-}
+
 /* .list-messages .messenger-container{
 
 } */
@@ -98,4 +101,11 @@
 .list-messenger .their .content{
     background-color:#dadbdb;
 
+}
+
+.chat-container .list-conversations .conversation{
+    padding: 5px 10px;
+}
+.chat-container .list-conversations .conversation.current {
+    background-color: #dbdbdb;
 }

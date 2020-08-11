@@ -63,10 +63,12 @@ model.addMessage = (message) => {
 model.loadConversations = async () =>{
     const response = await firebase.firestore().collection(model.collectionName).where('users','array-contains', model.currentUser.email).get()
     model.conversations = getDataFromDocs(response.docs)
+    // load cuoc tro chuyen dau tien
     if(model.conversations.length > 0){
       model.currentConversation = model.conversations[0]
       view.showCurrentConversation()
     }
+    view.showConversations()
 }     
 
 model.listenConversationsChange  = () => {

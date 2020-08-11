@@ -1,5 +1,5 @@
 const view = {}
-view.setActiveScreen = (screenName) => {
+view.setActiveScreen = (screenName, fromCreateConversation = false) => {
   switch (screenName) {
     case 'loginScreen' :
     // in ra man login
@@ -54,8 +54,14 @@ view.setActiveScreen = (screenName) => {
         sendMessengerForm.message.value = ''
       }
     })
-    model.loadConversations()
-    model.listenConversationsChange()
+    
+    if(!fromCreateConversation){
+      model.loadConversations()
+      model.listenConversationsChange()
+    }else {
+      view.showConversations()
+      view.showCurrentConversation()
+    }
     // Log Out
       document.getElementById("logOut").addEventListener("click", (e) => {
         e.preventDefault()  
@@ -63,7 +69,16 @@ view.setActiveScreen = (screenName) => {
           alert("Sign-out successful.")
         })
       })
+    //  Sang màn create conversation
+        document.querySelector(".create-conversation .btn").addEventListener('click', () =>{
+          view.setActiveScreen('createConversation')
+        })
     break;
+    case 'createConversation' :
+      document.getElementById('app').innerHTML = components.createConversation
+      document.querySelector('#back-to-chat').addEventListener('click',() =>{
+        view.setActiveScreen("chatScreen" , true)
+      })
     }
 }
 
@@ -92,8 +107,9 @@ view.addMessage = (message) => {
 }
 
 view.showCurrentConversation = () => {
+  document.querySelector('.list-messages').innerHTML = ''
   // Doi ten cuoc tro truyen
-  console.log(model.currentConversation)
+  // console.log(model.currentConversation)
   document.getElementsByClassName('conversation-header')[0].innerText = model.currentConversation.title
   // In cac tin nhan len man hinh
   for(message of model.currentConversation.messages){
@@ -106,3 +122,38 @@ view.scrollToEndElement = () => {
   var element = document.querySelector(".list-messages");
   element.scrollTop = element.scrollHeight;
 }
+
+view.showConversations = () => {
+  for(oneConversation of model.conversations){
+    view.addConversation(oneConversation)
+  }
+}
+// hien thi cuoc tro truyen khi click
+view.addConversation = (conversation) => {
+  const conversationWrapper = document.createElement("div")
+  conversationWrapper.className = 'conversation cursor-pointer'
+  if (model.currentConversation.id === conversation.id){
+    conversationWrapper.classList.add('current')
+  }
+  conversationWrapper.innerHTML = `
+    <div class conversation-title>
+      ${conversation.title}
+    </div>
+    <div class conversation-num-user>
+      ${conversation.users.length} user
+    </div>
+  `
+
+  conversationWrapper.addEventListener('click',() => {
+    // doi giao dien current
+    document.querySelector('.current').classList.remove('current')
+    //them class current khi click vao
+    conversationWrapper.classList.add('current')
+    // thay doi model.currentConversation
+    model.currentConversation = conversation
+    // in cac tin nhan len man hinh
+    view.showCurrentConversation()
+  })
+  document.querySelector('.list-conversations').appendChild(conversationWrapper)
+}
+

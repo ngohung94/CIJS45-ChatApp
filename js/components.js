@@ -89,11 +89,21 @@ components.registerScreen = `
 components.chatScreen  = 
 `
 <div class="chat-container">
-<div class="header">
-    MindX Chat
-    <button id="logOut">Log Out</button>
-</div>
-<div class="main">
+  <div class="header">
+      MindX Chat
+      <button id="logOut">Log Out</button>
+  </div>
+  <div class="main">
+    <div class="aside-left">
+      <div class="create-conversation">
+        <button class="btn">+ New conversation</button>
+      </div>
+      <div class="list-conversations">
+        
+      </div>
+    </div>
+    
+
     <div class="conversation-detail">
         <div class="conversation-header">    
         First conversation      
@@ -110,6 +120,33 @@ components.chatScreen  =
           </button>
         </form>
     </div>
+      
+    <div class="aside-right">   
+    </div>
+  </div>
 </div>
+`
+
+components.createConversation = `
+<div class="create-conversation-container">
+  <div class="header">
+      MindX Chat
+      <button id="logOut">Log Out</button>
+  </div>
+  <div class="main" style="padding: 15px 30%;">
+    <form id="create-conversation-form">
+      <div style="margin-bottom:30px ;"> Create a new conversation</div>
+      <div class="input-wrapper">
+        <input type="text" placeholder="Conversation name" name='conversationTitle'>
+        <div class="error" id="conversation-name-error"></div>
+      </div>
+      <div class="input-wrapper">
+        <input type="text" placeholder="Friend email" name="conversationEmail">
+        <div class="error" id="conversation-email-error"></div>
+      </div>
+      <button type="submit" class="btn">Save</button>
+      <button type="button" class="btn btn-light" id="back-to-chat">Cancel</button>
+    </form>
+  </div>
 </div>
 `
