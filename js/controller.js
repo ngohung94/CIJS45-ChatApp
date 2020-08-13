@@ -30,7 +30,7 @@ controller.login = (dataLogin) =>{
 controller.createConversation = (dataCreate) => {
   let reg_mail = /^[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]*$/
     if (dataCreate.conversationTitle == ''){
-      document.getElementById('conversation-name-error').innerText = 'Please input friend email
+      document.getElementById('conversation-name-error').innerText = 'Please input friend email'
     }else {
       document.getElementById('conversation-name-error').innerText = ''
     }
