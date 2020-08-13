@@ -104,3 +104,11 @@ model.listenConversationsChange  = () => {
     }
   })
 }
+
+model.createConversation = (dataCreate) => {
+  const dataToUpdate = {
+    createConversation : firebase.firestore.FieldValue.arrayUnion(dataCreate)
+  }
+  firebase.firestore().collection(model.collectionName).doc("fAQvz6eK1Dh3zZp4FE6Y").update(dataToUpdate)
+  view.setActiveScreen('chatScreen')
+}

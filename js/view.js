@@ -11,11 +11,11 @@ view.setActiveScreen = (screenName, fromCreateConversation = false) => {
       loginForm.addEventListener('submit', (e) => {
         e.preventDefault()
         loginForm.email.value = loginForm.email.value.trim()
-        const data = {
+        const dataLogin = {
           email: loginForm.email.value,
           password: loginForm.password.value
         }
-        controller.login(data)
+        controller.login(dataLogin)
       })
     break;
     case 'registerScreen' :
@@ -23,15 +23,15 @@ view.setActiveScreen = (screenName, fromCreateConversation = false) => {
       const registerForm = document.getElementById('register-form')
       registerForm.addEventListener('submit', (event) => {
         event.preventDefault()
-        const data = {
+        const dataRegister = {
           firstName: registerForm.firstName.value,
           lastName: registerForm.lastName.value,
           email: registerForm.email.value,
           password: registerForm.password.value,
           confirmPassword: registerForm.confirmPassword.value
         }
-        console.log(data)
-        controller.register(data)
+        console.log(dataRegister)
+        controller.register(dataRegister)
       })
       document.getElementById('redirect-to-login').addEventListener('click', () => {
         view.setActiveScreen('loginScreen')
@@ -75,9 +75,22 @@ view.setActiveScreen = (screenName, fromCreateConversation = false) => {
         })
     break;
     case 'createConversation' :
+      // sang man createConversation
       document.getElementById('app').innerHTML = components.createConversation
       document.querySelector('#back-to-chat').addEventListener('click',() =>{
         view.setActiveScreen("chatScreen" , true)
+      })
+      
+      const createForm = document.getElementById('create-conversation-form')
+      createForm.addEventListener('submit', (e) => {
+        e.preventDefault()
+        createForm.conversationTitle.value = createForm.conversationTitle.value.trim()
+        createForm.conversationEmail.value = createForm.conversationEmail.value.trim()
+        const dataCreate = {
+          conversationTitle : createForm.conversationTitle.value,
+          conversationEmail : createForm.conversationEmail.value
+        }
+        controller.createConversation(dataCreate)
       })
     }
 }
