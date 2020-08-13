@@ -28,7 +28,6 @@ controller.login = (dataLogin) =>{
 }
 
 controller.createConversation = (dataCreate) => {
-  let reg_mail = /^[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]*$/
     if (dataCreate.conversationTitle == ''){
       document.getElementById('conversation-name-error').innerText = 'Please input friend email'
     }else {
@@ -37,9 +36,6 @@ controller.createConversation = (dataCreate) => {
     
     if (dataCreate.conversationEmail == ''){
       document.getElementById('conversation-email-error').innerText = 'Please input friend email'
-    }else if (!reg_mail.test(dataCreate.conversationEmail)){     
-      document.getElementById('conversation-email-error').innerText = 'Invalid email (Example: abc@gmail.com)';
-      return false
     }else {
       document.getElementById('conversation-email-error').innerText = ''
     }
