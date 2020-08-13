@@ -28,12 +28,9 @@ controller.login = (dataLogin) =>{
 }
 
 controller.createConversation = (dataCreate) => {
-  let reg_mail = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/
+  let reg_mail = /^[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]*$/
     if (dataCreate.conversationTitle == ''){
-      document.getElementById('conversation-name-error').innerText = 'Please input friend email'
-    }else if (reg_mail.test(dataCreate.conversationTitle)){     
-      document.getElementById('conversation-name-error').innerText = 'Do not use special characters';
-      return false
+      document.getElementById('conversation-name-error').innerText = 'Please input friend email
     }else {
       document.getElementById('conversation-name-error').innerText = ''
     }
