@@ -88,7 +88,9 @@ view.setActiveScreen = (screenName, fromCreateConversation = false) => {
         createForm.conversationEmail.value = createForm.conversationEmail.value.trim()
         const dataCreate = {
           conversationTitle : createForm.conversationTitle.value,
-          conversationEmail : createForm.conversationEmail.value
+          conversationEmail : createForm.conversationEmail.value,
+          owner : model.currentUser.email,
+          createdAt : (new Date()).toISOString()
         }
         controller.createConversation(dataCreate)
       })

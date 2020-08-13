@@ -28,17 +28,24 @@ controller.login = (dataLogin) =>{
 }
 
 controller.createConversation = (dataCreate) => {
-  document.getElementById('conversation-name-error').innerText = (dataCreate.conversationTitle.trim() === '' ) ? 'Please input conversation name' :  '' ;
-  // document.getElementById('conversation-email-error').innerText = (dataCreate.conversationEmail.trim() === '' ) ? 'Please input friend email' :  '' ;
   let reg_mail = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/
-        if (dataCreate.conversationEmail == ''){
-          document.getElementById('conversation-email-error').innerText = 'Please input friend email'
-        }else if (!reg_mail.test(dataCreate.conversationEmail)){     
-          document.getElementById('conversation-email-error').innerText = 'Invalid email (Example: abc@gmail.com)';
-          return false
-        }else {
-          document.getElementById('conversation-email-error').innerText = ''
-        }
+    if (dataCreate.conversationTitle == ''){
+      document.getElementById('conversation-name-error').innerText = 'Please input friend email'
+    }else if (reg_mail.test(dataCreate.conversationTitle)){     
+      document.getElementById('conversation-name-error').innerText = 'Do not use special characters';
+      return false
+    }else {
+      document.getElementById('conversation-name-error').innerText = ''
+    }
+    
+    if (dataCreate.conversationEmail == ''){
+      document.getElementById('conversation-email-error').innerText = 'Please input friend email'
+    }else if (!reg_mail.test(dataCreate.conversationEmail)){     
+      document.getElementById('conversation-email-error').innerText = 'Invalid email (Example: abc@gmail.com)';
+      return false
+    }else {
+      document.getElementById('conversation-email-error').innerText = ''
+    }
 
   if(dataCreate.conversationTitle !== '' && dataCreate.conversationEmail !== ''){
     model.createConversation(dataCreate)
