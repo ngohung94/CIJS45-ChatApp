@@ -1,53 +1,82 @@
 const controller = {}
-controller.register = (dataRegister) => {
-    document.getElementById('first-name-error').innerText = (dataRegister.firstName.trim() === '' ) ? 'Please input first name' :  '' ;
-    document.getElementById('last-name-error').innerText = (dataRegister.lastName.trim() === '' ) ? 'Please input last name' :  '' ;
-    document.getElementById('email-error').innerText  = (dataRegister.email.trim() === '' ) ? 'Please input email' :  '' ;
-    document.getElementById('password-error').innerText = (dataRegister.password === '') ? 'Please input password' :  '' ;
-
-    if (dataRegister.confirmPassword === ''){
-      document.getElementById('confirm-password-error').innerText = 'Please input confirm password' 
-    }else if ( dataRegister.password !== dataRegister.confirmPassword ){
-      document.getElementById('confirm-password-error').innerText  = `Password didn't match`
-    }else{
-      document.getElementById('confirm-password-error').innerText  = ''
+controller.register = (data) => {
+    if (data.firstName.trim() === ''){
+      view.setErrorMessage('first-name-error', 'Please input first name')
+    }else {
+      view.setErrorMessage('first-name-error', '')
     }
-
-    if(dataRegister.firstName !== '' && dataRegister.lastName !== '' && dataRegister.email !== '' && dataRegister.password !== '' && dataRegister.confirmPassword !== '' && dataRegister.password === dataRegister.confirmPassword){
-      model.register(dataRegister)
+    if (data.lastName.trim() === ''){
+      view.setErrorMessage('last-name-error' , 'Please input last name')
+    }else {
+      view.setErrorMessage('last-name-error', '')
+    }
+    if (data.email.trim() === ''){
+      view.setErrorMessage('email-error' , 'Please input email')
+    }else {
+      view.setErrorMessage('email-error', '')
+    }
+    if (data.password.trim() === ''){
+      view.setErrorMessage('password-error' , 'Please input password')
+    }else {
+      view.setErrorMessage('password-error', '')
+    }
+    if (data.confirmPassword.trim() === ''){
+      view.setErrorMessage('confirm-password-error' , 'Please input confirm password')
+    }else if ( data.password !== data.confirmPassword ){
+      view.setErrorMessage('confirm-password-error' , `Password didn't match`)
+    }else{
+      view.setErrorMessage('confirm-password-error' , '')
+    }
+    if(data.firstName.trim() !== '' && data.lastName.trim() !== '' && data.email.trim() !== '' && data.password.trim() !== '' && data.confirmPassword.trim() !== '' && data.password.trim() === data.confirmPassword.trim()){
+      model.register(data)
     }
   }
 
 controller.login = (dataLogin) =>{
-    document.getElementById('email-error').innerText  = (dataLogin.email === '' ) ? 'Please input email' : '' ; 
-    document.getElementById('password-error').innerText =  (dataLogin.password === '' ) ? 'Please input password' : '' ;
-
-  if(dataLogin.email !== '' && dataLogin.password !== ''){
+  if (dataLogin.email.trim() === ''){
+    view.setErrorMessage('email-error' , 'Please input email')
+  }else {
+    view.setErrorMessage('email-error', '')
+  }
+  if (dataLogin.password.trim() === ''){
+    view.setErrorMessage('password-error' , 'Please input password')
+  }else {
+    view.setErrorMessage('password-error', '')
+  }
+  if(dataLogin.email.trim() !== '' && dataLogin.password.trim() !== ''){
     model.login(dataLogin)
   }
 }
 
-controller.createConversation = (dataCreate) => {
-  let reg_mail = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/
-    if (dataCreate.conversationTitle == ''){
-      document.getElementById('conversation-name-error').innerText = 'Please input friend email'
-    }else if (reg_mail.test(dataCreate.conversationTitle)){     
-      document.getElementById('conversation-name-error').innerText = 'Do not use special characters';
-      return false
+controller.createConversation = ({conversationTitle,conversationEmail}) => {
+    if (conversationTitle.trim() === ''){
+      view.setErrorMessage('conversation-name-error', 'Please input conversation name')
     }else {
-      document.getElementById('conversation-name-error').innerText = ''
-    }
-    
-    if (dataCreate.conversationEmail == ''){
-      document.getElementById('conversation-email-error').innerText = 'Please input friend email'
-    }else if (!reg_mail.test(dataCreate.conversationEmail)){     
-      document.getElementById('conversation-email-error').innerText = 'Invalid email (Example: abc@gmail.com)';
-      return false
-    }else {
-      document.getElementById('conversation-email-error').innerText = ''
+      view.setErrorMessage('conversation-name-error', '')
     }
 
-  if(dataCreate.conversationTitle !== '' && dataCreate.conversationEmail !== ''){
-    model.createConversation(dataCreate)
+    if (conversationEmail.trim() === ''){
+      view.setErrorMessage('conversation-email-error' , 'Please input friend email')
+    }else {
+      view.setErrorMessage('conversation-email-error', '')
+    }
+
+  if(conversationTitle.trim() !== '' && conversationEmail.trim() !== ''){
+    const dataCreateConversation = {
+      title : conversationTitle,
+      users : [conversationEmail,model.currentUser.email],
+      createdAt : (new Date()).toISOString(),
+      messages : []
+    }
+    model.createConversation(dataCreateConversation)
+  }
+}
+
+controller.addUserConversation = (data) => {
+  if (data.email.trim() === '') {
+    view.setErrorMessage('add-user-email-error', 'Please input  add friend email to the conversation ')
+  console.log('adas')
+  }else {
+    view.setErrorMessage('add-user-email-error', '')
   }
 }

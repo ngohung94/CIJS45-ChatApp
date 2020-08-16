@@ -57,7 +57,7 @@ model.addMessage = (message) => {
         const dataToUpdate = {
           messages : firebase.firestore.FieldValue.arrayUnion(message)
         }
-        firebase.firestore().collection(model.collectionName).doc("TUPswh8j3PdIcZVCDmSn").update(dataToUpdate)
+        firebase.firestore().collection(model.collectionName).doc(model.currentConversation.id).update(dataToUpdate)
 }
 
 model.loadConversations = async () =>{
@@ -98,17 +98,19 @@ model.listenConversationsChange  = () => {
           model.currentConversation = docData
           const lastMessage = docData.messages[docData.messages.length - 1]
           view.addMessage(lastMessage)
+          view.scrollToEndElement()
         }
-        view.scrollToEndElement()
+      }
+      if(type === 'added'){
+        const docData = getDataFromDoc(oneChange.doc)
+        model.conversations.push(docData)
+        view.addConversation(docData)
       }
     }
   })
 }
 
-model.createConversation = (dataCreate) => {
-  const dataToUpdate = {
-    createConversation : firebase.firestore.FieldValue.arrayUnion(dataCreate)
-  }
-  firebase.firestore().collection(model.collectionName).doc("fAQvz6eK1Dh3zZp4FE6Y").update(dataToUpdate)
-  view.setActiveScreen('chatScreen')
+model.createConversation = async (dataCreateConversation) => {
+  await firebase.firestore().collection(model.collectionName).add(dataCreateConversation)
+  view.setActiveScreen('chatScreen',true)  // them true de lang nghe thay doi ko bi add nhieu lan 
 }

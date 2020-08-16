@@ -10,7 +10,54 @@
   
 </head>
 <body>
-
-
+  <div class="chat-container">
+    <div class="header">
+        MindX Chat
+        <button id="logOut">Log Out</button>
+    </div>
+    <div class="main">
+      <div class="aside-left">
+        <div class="create-conversation">
+          <button class="btn">+ New conversation</button>
+        </div>
+        <div class="list-conversations">
+          
+        </div>
+      </div>
+      
+  
+      <div class="conversation-detail">
+          <div class="conversation-header">    
+          First conversation      
+          </div>
+          <div class="list-messages" >
+            
+          </div>
+          <form id="send-messenger-form">
+            <div class="input-wrapper">
+              <input type="text" name="message" placeholder="Type a messenger">
+            </div>
+            <button type="submit">
+              <i class="fa fa-paper-plane" aria-hidden="true"></i>
+            </button>
+          </form>
+      </div>
+        
+      <div class="aside-right">   
+        <div class="list-user">
+            <div class="user">Ngohung0999@gmail.com</div>
+            <div class="user">Ngohung0999@gmail.com</div>
+            <div class="user">Ngohung0999@gmail.commmmmmmmmmmmmmm</div>
+        </div>
+        <form id="add-user- form">
+          <div class="input-wrapper">
+            <input type="text" name="email" placeholder="Input friend name">
+            <div class="error" id="add-user-email-error"></div>
+          </div>
+          <button class="btn" type="submit">Add</button>
+        </form>
+      </div>
+    </div>
+  </div>
 </body>
 </html>

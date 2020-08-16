@@ -13,7 +13,7 @@
     right :0;
     height: 30px;
     padding: 0px 10px;
-    background-color: chartreuse;
+    background-color: #ff0000;
 }
 .chat-container .main{
     height: calc(100% - 64px);
@@ -108,4 +108,18 @@
 }
 .chat-container .list-conversations .conversation.current {
     background-color: #dbdbdb;
+}
+
+.chat-container .aside-right {
+    padding: 10px;
+    border-left: 1px solid #dbdbdb;
+    width: 13%;
+
+}
+.chat-container .aside-right .user {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.chat-container #add-user-form{
+    margin-top: 12px;
 }

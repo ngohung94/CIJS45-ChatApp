@@ -18,6 +18,7 @@ view.setActiveScreen = (screenName, fromCreateConversation = false) => {
         controller.login(dataLogin)
       })
     break;
+
     case 'registerScreen' :
       document.getElementById('app').innerHTML = components.registerScreen
       const registerForm = document.getElementById('register-form')
@@ -37,8 +38,8 @@ view.setActiveScreen = (screenName, fromCreateConversation = false) => {
         view.setActiveScreen('loginScreen')
       })
     break;
+
     case  'chatScreen' :
-              
       document.getElementById('app').innerHTML = components.chatScreen
       const sendMessengerForm = document.getElementById("send-messenger-form")
       sendMessengerForm.addEventListener("submit",(e)=>{
@@ -73,7 +74,18 @@ view.setActiveScreen = (screenName, fromCreateConversation = false) => {
         document.querySelector(".create-conversation .btn").addEventListener('click', () =>{
           view.setActiveScreen('createConversation')
         })
+
+    // add  User to the Conversation
+    let addUserToConversation = document.getElementById("add-user-form")
+    addUserToConversation.addEventListener("submit", (e) => {
+      e.preventDefault()
+      const dataAddUserToConversation = {
+        EmailUserToConversation : addUserToConversation.email.value
+      }
+      controller.addUserConversation(dataAddUserToConversation)
+    })
     break;
+
     case 'createConversation' :
       // sang man createConversation
       document.getElementById('app').innerHTML = components.createConversation
@@ -81,18 +93,14 @@ view.setActiveScreen = (screenName, fromCreateConversation = false) => {
         view.setActiveScreen("chatScreen" , true)
       })
       
-      const createForm = document.getElementById('create-conversation-form')
-      createForm.addEventListener('submit', (e) => {
+      const creatConversationForm = document.getElementById('create-conversation-form')
+      creatConversationForm.addEventListener('submit', (e) => {
         e.preventDefault()
-        createForm.conversationTitle.value = createForm.conversationTitle.value.trim()
-        createForm.conversationEmail.value = createForm.conversationEmail.value.trim()
-        const dataCreate = {
-          conversationTitle : createForm.conversationTitle.value,
-          conversationEmail : createForm.conversationEmail.value,
-          owner : model.currentUser.email,
-          createdAt : (new Date()).toISOString()
+        const dataCreateConversation = {
+          conversationTitle : creatConversationForm.conversationTitle.value,
+          conversationEmail : creatConversationForm.conversationEmail.value,
         }
-        controller.createConversation(dataCreate)
+        controller.createConversation(dataCreateConversation)
       })
     }
 }
@@ -131,8 +139,21 @@ view.showCurrentConversation = () => {
     view.addMessage(message)
   }
   view.scrollToEndElement()
+  // in ten nhung nguoi dung trong mes
+  view.showListUsers(model.currentConversation.users)
 }
-
+view.showListUsers = (users) => {
+  document.querySelector('.list-user').innerText = ''
+  for(user of users){
+    view.addUser(user)
+  }
+}
+view.addUser = (user) => {
+  const userWrapper = document.createElement('div')
+  userWrapper.classList.add('user')
+  userWrapper.innerText = user
+  document.querySelector('.list-user').appendChild(userWrapper)
+}
 view.scrollToEndElement = () => {
   var element = document.querySelector(".list-messages");
   element.scrollTop = element.scrollHeight;
@@ -159,16 +180,27 @@ view.addConversation = (conversation) => {
     </div>
   `
 
-  conversationWrapper.addEventListener('click',() => {
+conversationWrapper.addEventListener('click',() => {
     // doi giao dien current
     document.querySelector('.current').classList.remove('current')
     //them class current khi click vao
     conversationWrapper.classList.add('current')
     // thay doi model.currentConversation
-    model.currentConversation = conversation
+    for (oneConversation of model.conversations){
+      if(oneConversation.id === conversation.id){
+        model.currentConversation = oneConversation
+      }
+    }
+    // const newConversation =  model.conversations.filter(oneConversation => oneConversation.id = model.currentConversation)
     // in cac tin nhan len man hinh
     view.showCurrentConversation()
   })
   document.querySelector('.list-conversations').appendChild(conversationWrapper)
 }
 
+view.setErrorMessage = (elementId, message) => {
+  document.getElementById(elementId).innerText = message
+}
+// view.addUserForm = (dataAddUser) => {
+ 
+// }

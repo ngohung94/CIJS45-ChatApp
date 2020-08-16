@@ -103,7 +103,6 @@ components.chatScreen  =
       </div>
     </div>
     
-
     <div class="conversation-detail">
         <div class="conversation-header">    
         First conversation      
@@ -121,7 +120,16 @@ components.chatScreen  =
         </form>
     </div>
       
-    <div class="aside-right">   
+    <div class="aside-right">    
+        <div class="list-user">
+        </div>
+        <form id="add-user-form">
+          <div class="input-wrapper">
+            <input type="text" name="email" placeholder="Input friend name">
+            <div class="error" id="add-user-email-error"></div>
+          </div>
+          <button class="btn" type="submit">Add</button>
+        </form>
     </div>
   </div>
 </div>

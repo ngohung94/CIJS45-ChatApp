@@ -83,12 +83,3 @@ getDataFromDocs = (docs) => {
     }
     return listData
 }
-
-// // add mess len firebase
-// addMessageFireBase = async ()=> {
-//     const documentId  = 'TUPswh8j3PdIcZVCDmSn'
-//     const response = await firebase.firestore().collection('conversations').doc(documentId).get()
-//     const user = getDataFromDoc(response)
-//     console.log(user)
-// }
-
