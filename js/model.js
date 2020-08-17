@@ -121,4 +121,5 @@ model.newConversation = async (data) => {
     users : firebase.firestore.FieldValue.arrayUnion(data)
   }
   await firebase.firestore().collection(model.collectionName).doc(model.currentConversation.id).update(dataToUpdate)
+  view.setActiveScreen('chatScreen',true)
 }

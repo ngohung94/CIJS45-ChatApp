@@ -79,10 +79,9 @@ view.setActiveScreen = (screenName, fromCreateConversation = false) => {
     let addUserForm = document.getElementById("add-user-form")
     addUserForm.addEventListener("submit", (e) => {
       e.preventDefault()
-      addUserForm.email.value = addUserForm.email.value.trim()
-      const data =  addUserForm.email.value
+        const data =  addUserForm.email.value
       controller.addUserConversation(data)
-      // model.newConversation(data)
+      addUserForm.email.value = ''
     })
     break;
 
