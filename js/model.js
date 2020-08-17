@@ -33,16 +33,16 @@ model.register = async (data) => {
 model.login = async (dataLogin) => {
     try {
       const response =  await firebase.auth().signInWithEmailAndPassword(dataLogin.email, dataLogin.password)
-      console.log(response)
-          if (response.user.emailVerified === false){
-              document.getElementById('email-error').innerText  = 'Please verify your email'
-          }else{
-              model.currentUser = {
-                  displayName : response.user.displayName,
-                  email : response.user.email
-              } 
-              view.setActiveScreen('chatScreen')
-          }
+      // console.log(response)
+      //     if (response.user.emailVerified === false){
+      //         document.getElementById('email-error').innerText  = 'Please verify your email'
+      //     }else{
+      //         model.currentUser = {
+      //             displayName : response.user.displayName,
+      //             email : response.user.email
+      //         } 
+      //         view.setActiveScreen('chatScreen')
+      //     }
       } catch(err){
           console.log(err)
           if (err.code == 'auth/user-not-found' || err.code == 'auth/invalid-email') {
@@ -113,4 +113,12 @@ model.listenConversationsChange  = () => {
 model.createConversation = async (dataCreateConversation) => {
   await firebase.firestore().collection(model.collectionName).add(dataCreateConversation)
   view.setActiveScreen('chatScreen',true)  // them true de lang nghe thay doi ko bi add nhieu lan 
+}
+
+// add user to the conversation
+model.newConversation = async (data) => {
+  const dataToUpdate = {
+    users : firebase.firestore.FieldValue.arrayUnion(data)
+  }
+  await firebase.firestore().collection(model.collectionName).doc(model.currentConversation.id).update(dataToUpdate)
 }
