@@ -105,6 +105,17 @@
 
 .chat-container .list-conversations .conversation{
     padding: 5px 10px;
+    position: relative;
+}
+.chat-container .list-conversations .conversation .notification{
+    width: 15px;
+    height: 15px;
+    background: #037BFE;
+    border-radius: 50%;
+    position: absolute;
+    right: 8px;
+    top : 20px;
+    display: none;
 }
 .chat-container .list-conversations .conversation.current {
     background-color: #dbdbdb;
@@ -123,3 +134,5 @@
 .chat-container #add-user-form{
     margin-top: 12px;
 }
+
+

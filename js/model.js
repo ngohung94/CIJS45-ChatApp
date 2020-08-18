@@ -70,7 +70,7 @@ model.loadConversations = async () =>{
     }
     view.showConversations()
 }     
-
+// lang nghe thay doi
 model.listenConversationsChange  = () => {
   let isFirstRun = true ;
   firebase.firestore().collection(model.collectionName).where('users','array-contains', model.currentUser.email)
@@ -86,19 +86,26 @@ model.listenConversationsChange  = () => {
       const type = oneChange.type
       if(type === 'modified'){
         const docData = getDataFromDoc(oneChange.doc)
-        console.log(docData)
         // update lai model.conversation
         for( let index = 0 ;index < model.conversations.length; index++){
           if(model.conversations[index].id === docData.id){
             model.conversations[index] = docData
           }
         }
+        if (docData.messages[docData.messages.length - 1].owner !== model.currentUser.email){
+          view.showNotification(docData.id)
+        }
         // update model.currentConversation
         if(docData.id === model.currentConversation.id){
+          if(docData.users.length !== model.currentConversation.users.length){
+            view.addUser(docData.users[docData.users.length - 1])
+            view.updateNumberUsers(docData.id,docData.users.length)
+          }else {
+            const lastMessage = docData.messages[docData.messages.length - 1]
+            view.addMessage(lastMessage)
+            view.scrollToEndElement()
+          }
           model.currentConversation = docData
-          const lastMessage = docData.messages[docData.messages.length - 1]
-          view.addMessage(lastMessage)
-          view.scrollToEndElement()
         }
       }
       if(type === 'added'){
@@ -110,7 +117,16 @@ model.listenConversationsChange  = () => {
   })
 }
 
-model.createConversation = async (dataCreateConversation) => {
-  await firebase.firestore().collection(model.collectionName).add(dataCreateConversation)
+// add  new conversation
+model.createConversation =  (dataCreateConversation) => {
+  firebase.firestore().collection(model.collectionName).add(dataCreateConversation)
   view.setActiveScreen('chatScreen',true)  // them true de lang nghe thay doi ko bi add nhieu lan 
+}
+
+// add user to the conversation
+model.addUser = (user) => {
+  const dataToUpdate = {
+    users : firebase.firestore.FieldValue.arrayUnion(user)
+  }
+  firebase.firestore().collection(model.collectionName).doc(model.currentConversation.id).update(dataToUpdate)
 }

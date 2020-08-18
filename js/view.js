@@ -76,13 +76,16 @@ view.setActiveScreen = (screenName, fromCreateConversation = false) => {
         })
 
     // add  User to the Conversation
-    let addUserToConversation = document.getElementById("add-user-form")
-    addUserToConversation.addEventListener("submit", (e) => {
+    let addUserForm = document.getElementById("add-user-form")
+    addUserForm.addEventListener("submit", (e) => {
       e.preventDefault()
-      const dataAddUserToConversation = {
-        EmailUserToConversation : addUserToConversation.email.value
-      }
-      controller.addUserConversation(dataAddUserToConversation)
+      const user =  addUserForm.email.value
+      controller.addUserConversation(user)
+      addUserForm.email.value = ''
+    })
+    
+    document.querySelector('#send-messenger-form input').addEventListener('click',() => {
+      view.hideNotification(model.currentConversation.id)
     })
     break;
 
@@ -168,16 +171,14 @@ view.showConversations = () => {
 view.addConversation = (conversation) => {
   const conversationWrapper = document.createElement("div")
   conversationWrapper.className = 'conversation cursor-pointer'
+  conversationWrapper.id = conversation.id
   if (model.currentConversation.id === conversation.id){
     conversationWrapper.classList.add('current')
   }
   conversationWrapper.innerHTML = `
-    <div class conversation-title>
-      ${conversation.title}
-    </div>
-    <div class conversation-num-user>
-      ${conversation.users.length} user
-    </div>
+    <div class conversation-title>${conversation.title}</div>
+    <div class conversation-num-user>${conversation.users.length} user</div>
+    <div class="notification"></div>
   `
 
 conversationWrapper.addEventListener('click',() => {
@@ -194,6 +195,7 @@ conversationWrapper.addEventListener('click',() => {
     // const newConversation =  model.conversations.filter(oneConversation => oneConversation.id = model.currentConversation)
     // in cac tin nhan len man hinh
     view.showCurrentConversation()
+    view.hideNotification(conversation.id)
   })
   document.querySelector('.list-conversations').appendChild(conversationWrapper)
 }
@@ -201,6 +203,19 @@ conversationWrapper.addEventListener('click',() => {
 view.setErrorMessage = (elementId, message) => {
   document.getElementById(elementId).innerText = message
 }
-// view.addUserForm = (dataAddUser) => {
- 
-// }
+
+view.updateNumberUsers = (docId, numberUsers) => {
+  const conversation = document.getElementById(docId)
+  // lay phan tu thu  2 trong div
+  const secondChild = conversation.getElementsByTagName('div')[1]
+  secondChild.innerText  = numberUsers + ' ' + 'users'
+}
+
+view.showNotification = (conversationId) => {
+  const conversation = document.getElementById(conversationId)
+  conversation.lastElementChild.style = 'display : block'
+}
+view.hideNotification = (conversationId) => {
+  const conversation = document.getElementById(conversationId)
+  conversation.lastElementChild.style = 'display : none'
+}

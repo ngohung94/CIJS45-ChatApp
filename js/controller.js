@@ -72,11 +72,13 @@ controller.createConversation = ({conversationTitle,conversationEmail}) => {
   }
 }
 
-controller.addUserConversation = (data) => {
-  if (data.email.trim() === '') {
-    view.setErrorMessage('add-user-email-error', 'Please input  add friend email to the conversation ')
-  console.log('adas')
+controller.addUserConversation = (user) =>{
+  if (user.trim() === ''){
+    view.setErrorMessage('add-user-email-error' , 'Please input friend email')
   }else {
     view.setErrorMessage('add-user-email-error', '')
   }
-}``
+  if (user.trim() !== ''){
+    model.addUser(user)
+  }
+}
