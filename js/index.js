@@ -6,7 +6,8 @@ const init = () => {
         projectId: "chat-app-64ade",
         storageBucket: "chat-app-64ade.appspot.com",
         messagingSenderId: "713948918157",
-        appId: "1:713948918157:web:b81f68f2b4bfe80984cdc4"
+        appId: "1:713948918157:web:b81f68f2b4bfe80984cdc4",
+        measurementId: "G-27MJ0YLR11"
     };
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
