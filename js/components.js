@@ -91,6 +91,9 @@ components.chatScreen  =
 <div class="chat-container">
   <div class="header">
       MindX Chat
+      <div class='sidebar'>
+        <i class="fa fa-bars" aria-hidden="true"></i>
+      </div>
       <button id="logOut">Log Out</button>
   </div>
   <div class="main">

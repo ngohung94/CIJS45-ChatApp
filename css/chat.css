@@ -121,7 +121,8 @@
     padding: 10px;
     border-left: 1px solid #dbdbdb;
     width: 13%;
-
+    transition : 1s;
+    height: 100%;
 }
 .chat-container .aside-right .user {
     overflow: hidden;
@@ -131,8 +132,23 @@
     margin-top: 12px;
 }
 
-
-
+.sidebar{
+    position: absolute;
+    top: 53px;
+    right: 13px;
+    color: #037BFE;
+    display: none;
+}
+.show{
+    position: fixed;
+    display: block !important;
+    right: 0;
+    width: 30% !important;
+    background: #fff;
+}
+.move-sidebar{
+    right: 31%;
+}
 @media screen and (max-width : 768px) { 
     .aside-right{
         display: none;
@@ -152,5 +168,8 @@
     }
     .conversation .notification {
         top : 23px !important ;
+    }
+    .sidebar{
+        display: block
     }
 }
