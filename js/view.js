@@ -177,19 +177,27 @@ view.addConversation = (conversation) => {
     conversationWrapper.classList.add('current')
   }
   conversationWrapper.innerHTML = `
-    <div class conversation-title>${conversation.title}</div>
-    <div class conversation-num-user>${conversation.users.length} user</div>
+    <div class="conversation-title">${conversation.title}</div>
+    <div class="conversation-num-user">${conversation.users.length} user</div>
     <div class="notification"></div>
   `
   const mediaQuery = window.matchMedia('(max-width: 768px')
-  console.log(mediaQuery)
+  console.log(mediaQuery)// khi man nho hon 768 se la true
   if(mediaQuery.matches){
     const firstCharacter = conversation.title.charAt(0).toUpperCase()
-    console.log(firstCharacter)
     conversationWrapper.firstElementChild.innerText = firstCharacter
     document.querySelector('.create-conversation .btn').innerText = `+`
-  
   }
+mediaQuery.addListener((e) => {
+  if(e.matches){
+    const firstCharacter = conversation.title.charAt(0).toUpperCase()
+    conversationWrapper.firstElementChild.innerText = firstCharacter
+    document.querySelector('.create-conversation .btn').innerText = `+`
+  }else{
+    conversationWrapper.firstElementChild.innerText= conversation.title
+    document.querySelector('.create-conversation .btn').innerText = `+ New conversation`
+  }
+})
 conversationWrapper.addEventListener('click',() => {
     // doi giao dien current
     document.querySelector('.current').classList.remove('current')
