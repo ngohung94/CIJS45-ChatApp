@@ -133,8 +133,7 @@ model.addUser = (user) => {
 // add user to the conversation
 model.newConversation = async (data) => {
   const dataToUpdate = {
-    users : firebase.firestore.FieldValue.arrayUnion(data)
+    users : firebase.firestore.FieldValue.arrayUnion(user)
   }
-  await firebase.firestore().collection(model.collectionName).doc(model.currentConversation.id).update(dataToUpdate)
-  view.setActiveScreen('chatScreen',true)
+  firebase.firestore().collection(model.collectionName).doc(model.currentConversation.id).update(dataToUpdate)
 }
