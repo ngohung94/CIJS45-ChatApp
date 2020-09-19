@@ -41,6 +41,7 @@
 .form-action span{
   font-weight: 600;
   cursor: pointer;
+  font-size: 17px;
 }
 .form-action span:hover{
   color: blue;

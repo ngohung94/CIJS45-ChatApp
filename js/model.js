@@ -19,15 +19,6 @@ model.register = async (data) => {
     alert(err.message)
   }
 
-    // .then( res => {
-    //     firebase.auth().currentUser.updateProfile({
-    //         displayName : data.fistName + " " + data.lastName,
-    //     })
-    //     firebase.auth().currentUser.sendEmailVerification().catch((err) => {
-    //         console.log(err)
-    //     });
-    // });
-    
 }
 
 model.login = async (dataLogin) => {
@@ -81,7 +72,7 @@ model.listenConversationsChange  = () => {
     }
     // 1 list document su thay doi
     const docChanges = res.docChanges()
-    console.log(docChanges)
+    // console.log(docChanges)
     for(oneChange of docChanges) {
       const type = oneChange.type
       if(type === 'modified'){
